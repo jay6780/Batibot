@@ -1,6 +1,10 @@
 const chromium = require('@sparticuz/chromium');
 const puppeteer = require('puppeteer-core');
 
+// Optimize chromium for serverless (no GPU, headless)
+chromium.setHeadlessMode = true;
+chromium.setGraphicsMode = false;
+
 module.exports = async (req, res) => {
 	const { url, method } = req;
 
