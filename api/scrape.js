@@ -1,4 +1,5 @@
-const puppeteer = require('puppeteer');
+const chromium = require('@sparticuz/chromium');
+const puppeteer = require('puppeteer-core');
 
 module.exports = async (req, res) => {
 	const { url, method } = req;
@@ -30,18 +31,12 @@ module.exports = async (req, res) => {
 
 		let browser;
 		try {
+			// Configure chromium for serverless environments (Vercel, AWS Lambda, etc.)
+			const executablePath = await chromium.executablePath();
 			browser = await puppeteer.launch({
-				headless: true,
-				args: [
-					'--no-sandbox',
-					'--disable-setuid-sandbox',
-					'--disable-dev-shm-usage',
-					'--disable-accelerated-2d-canvas',
-					'--no-first-run',
-					'--no-zygote',
-					'--single-process',
-					'--disable-gpu'
-				]
+				headless: chromium.headless,
+				executablePath,
+				args: chromium.args
 			});
 
 			const page = await browser.newPage();
