@@ -1,15 +1,23 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/**/*.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/api/scrape.js"
-      }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/scrape-videos",
+      "dest": "/api/scrape.js"
+    },
+    {
+      "src": "/health",
+      "dest": "/api/scrape.js"
+    },
+    {
+      "src": "/",
+      "dest": "/api/scrape.js"
+    }
+  ]
+}
